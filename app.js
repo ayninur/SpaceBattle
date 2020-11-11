@@ -14,8 +14,9 @@ class Ship {
         this.firepower = firepower || Math.floor(Math.random() + 3) + 2;
         this.accuracy = accuracy || (Math.floor(Math.floor() + 3) + 6) / 10;
     }
-
+    ////////////////////////////
     //* Let's set up the attack
+    ////////////////////////////
 
     attack(enemy) {
         // if the random value generated is <= the ships accuracy
@@ -41,15 +42,48 @@ const USS = new Ship("USS Schwarz", 20, 5, .7)
 const alienShips = []
 
 // create our 6 alien ships
-const alienShip = () => {
+const aliens = () => {
     // loop through the alien ships
-    for (let i = 0; i < 7; i++) {
+    for (let i = 1; i < 7; i++) {
         // push the new Ship iteration and name it as stated in the Ship class a
         alienShips.push(new Ship(`Alien Ship ${[i]}`))[i];
     }
 }
 
-alienShip();
+aliens();
+
+//////////////////////////////////////
+//* Let the games begin!
+//////////////////////////////////////
+
+let spaceBattleGame = () => {
+    let gameIntro = prompt('Do you you want to attack or retreat?', "Attack or Retreat?")
+    gameIntro.toLocaleLowerCase();
+    if (gameIntro === "attack") {
+        if (USS.hull > 0) {
+            USS.attack(alienShips[0])
+            if (alienShips[0].hull > 0) {
+                alienShips[0].attack(USS)
+                spaceBattleGame()
+            } else if (aliens[0].hull <= 0) {
+                alienShips.shift()
+                if (aliens.length <= 0) {
+                    alert(`The ${aliens.name} have finally bene destroyed! The ${USS.name} has saved all of humanity!!`)
+                } else {
+                    aliens[0].attack(USS)
+                    spaceBattleGame()
+                }
+            }
+        } else if (USS.hull <= 0) {
+            alert(`The ${USS.name} has been destroyed!`)
+        }
+    } else {
+        let quitGame = alert("You coward")
+    }
+
+}
+
+spaceBattleGame();
 
 
 
