@@ -83,7 +83,7 @@ let spaceBattleGame = () => {
 
 }
 
-spaceBattleGame();
 
+$('#start').click(spaceBattleGame)
 
 
